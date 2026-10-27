@@ -1,3 +1,13 @@
+enum HttpMethod {
+    Get = 'GET',
+    Post = 'POST',
+    Put = 'PUT',
+    Patch = 'PATCH',
+    Delete = 'DELETE',
+    Head = 'HEAD',
+    Options = 'OPTIONS',
+}
+
 interface RequestOptions {
     [key: string]: string;
 }
@@ -22,7 +32,7 @@ class Loader {
             console.error('No callback for GET response');
         }
     ): void {
-        this.load('GET', endpoint, callback, options);
+        this.load(HttpMethod.Get, endpoint, callback, options);
     }
 
     private errorHandler(res: Response): Response {
@@ -47,7 +57,7 @@ class Loader {
     }
 
     private load(
-        method: string,
+        method: HttpMethod,
         endpoint: string,
         callback: (data: unknown) => void,
         options: RequestOptions = {}
