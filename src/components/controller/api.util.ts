@@ -33,8 +33,12 @@ function isArticle(data: unknown): data is Article {
     );
 }
 
+function isArrayOf<T>(data: unknown, isItem: (item: unknown) => item is T): data is T[] {
+    return Array.isArray(data) && data.every(isItem);
+}
+
 export function isSourcesResponse(data: unknown): data is SourcesResponse {
-    return isRecord(data) && data.status === 'ok' && Array.isArray(data.sources) && data.sources.every(isSource);
+    return isRecord(data) && data.status === 'ok' && isArrayOf(data.sources, isSource);
 }
 
 export function isNewsResponse(data: unknown): data is NewsResponse {
@@ -42,7 +46,6 @@ export function isNewsResponse(data: unknown): data is NewsResponse {
         isRecord(data) &&
         data.status === 'ok' &&
         typeof data.totalResults === 'number' &&
-        Array.isArray(data.articles) &&
-        data.articles.every(isArticle)
+        isArrayOf(data.articles, isArticle)
     );
 }
