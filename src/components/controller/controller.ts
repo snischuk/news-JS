@@ -1,37 +1,36 @@
+import type { Article, Source } from './api.type';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    getSources(callback) {
-        super.getResp(
-            {
-                endpoint: 'sources',
-            },
-            callback
-        );
+    getSources(callback: (sources: Source[]) => void): void {
+        super.getSources(callback);
     }
 
-    getNews(e, callback) {
-        let target = e.target;
-        const newsContainer = e.currentTarget;
+    getNews(event: Event, callback: (articles: Article[]) => void): void {
+        const newsContainer = event.currentTarget;
+        let target: Element | null = event.target instanceof Element ? event.target : null;
+
+        if (!(newsContainer instanceof Element) || target === null) {
+            return;
+        }
 
         while (target !== newsContainer) {
             if (target.classList.contains('source__item')) {
                 const sourceId = target.getAttribute('data-source-id');
-                if (newsContainer.getAttribute('data-source') !== sourceId) {
+
+                if (sourceId !== null && newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
-                        {
-                            endpoint: 'everything',
-                            options: {
-                                sources: sourceId,
-                            },
-                        },
-                        callback
-                    );
+                    super.loadNews(sourceId, callback);
                 }
+
                 return;
             }
-            target = target.parentNode;
+
+            if (target.parentElement === null) {
+                return;
+            }
+
+            target = target.parentElement;
         }
     }
 }
