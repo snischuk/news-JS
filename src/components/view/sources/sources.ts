@@ -1,20 +1,33 @@
+import type { Source } from '../../controller/api.type';
 import './sources.css';
 
 class Sources {
-    draw(data) {
+    draw(data: Source[]): void {
         const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp');
+        const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
+        const sourcesContainer = document.querySelector('.sources');
+
+        if (sourceItemTemp === null || sourcesContainer === null) {
+            throw new Error('Sources template or container not found');
+        }
 
         data.forEach((item) => {
-            const sourceClone = sourceItemTemp.content.cloneNode(true);
+            const sourceClone = document.importNode(sourceItemTemp.content, true);
 
-            sourceClone.querySelector('.source__item-name').textContent = item.name;
-            sourceClone.querySelector('.source__item').setAttribute('data-source-id', item.id);
+            const sourceName = sourceClone.querySelector('.source__item-name');
+            const sourceItem = sourceClone.querySelector('.source__item');
+
+            if (sourceName === null || sourceItem === null) {
+                throw new Error('Invalid source item template');
+            }
+
+            sourceName.textContent = item.name;
+            sourceItem.setAttribute('data-source-id', item.id);
 
             fragment.append(sourceClone);
         });
 
-        document.querySelector('.sources').append(fragment);
+        sourcesContainer.append(fragment);
     }
 }
 
