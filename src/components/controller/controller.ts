@@ -7,7 +7,7 @@ class AppController extends AppLoader {
     }
 
     public getNews(event: Event, callback: (articles: Article[]) => void): void {
-        const newsContainer = event.currentTarget;
+        const newsContainer: EventTarget | null = event.currentTarget;
         let target: Element | null = event.target instanceof Element ? event.target : null;
 
         if (!(newsContainer instanceof Element) || target === null) {
@@ -16,7 +16,7 @@ class AppController extends AppLoader {
 
         while (target !== newsContainer) {
             if (target.classList.contains('source__item')) {
-                const sourceId = target.getAttribute('data-source-id');
+                const sourceId: string | null = target.getAttribute('data-source-id');
 
                 if (sourceId !== null && newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
