@@ -8,19 +8,26 @@
         <title>NewsPortal</title>
     </head>
     <body>
-        <header>
-            <h1>News Portal</h1>
-        </header>
-        <main>
-            <div class="sources buttons"></div>
-            <div class="news"></div>
-        </main>
-        <footer>
-            <a href="https://rs.school/courses/javascript">
-                <img src="./assets/logo.svg" alt="RSSchool logo" width="30" height="30" />
-            </a>
-            <p class="copyright">Copyright 2026 <a href="https://github.com/snischuk">Created by Max Snischuk</a></p>
-        </footer>
+        <div class="page-container">
+            <header>
+                <h1>News Portal</h1>
+            </header>
+            <main>
+                <div class="sources buttons"></div>
+                <div class="news"></div>
+            </main>
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <a href="https://rs.school/courses/javascript">
+                            <img src="./assets/logo.svg" alt="RSSchool logo" width="30" height="30" />
+                        </a>
+                        <span class="copyright">&copy; Copyright 2026</span>
+                    </div>
+                    <span class="footer-author"><a href="https://github.com/snischuk">Created by Max Snischuk</a></span>
+                </div>
+            </footer>
+        </div>
 
         <template id="sourceItemTemp">
             <div class="source__item">
