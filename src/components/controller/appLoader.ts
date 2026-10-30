@@ -7,13 +7,11 @@ class AppLoader extends Loader {
         const apiUrl: string | undefined = process.env.API_URL;
         const apiKey: string | undefined = process.env.API_KEY;
 
-        if (apiUrl === undefined || apiKey === undefined) {
-            throw new Error('API_URL and API_KEY must be defined');
+        if (apiUrl === undefined) {
+            throw new Error('API_URL must be defined');
         }
 
-        super(apiUrl, {
-            apiKey,
-        });
+        super(apiUrl, apiKey ? { apiKey } : {});
     }
 
     public getSources(callback: (sources: Source[]) => void): void {
