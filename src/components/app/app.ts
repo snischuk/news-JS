@@ -11,7 +11,7 @@ class App {
     }
 
     start(): void {
-        const sourcesContainer = document.querySelector('.sources');
+        const sourcesContainer = document.querySelector<HTMLDivElement>('.sources');
 
         if (sourcesContainer === null) {
             throw new Error('Sources container not found');

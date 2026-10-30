@@ -6,7 +6,7 @@ class News {
         const news = data.slice(0, 10);
         const fragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
-        const newsContainer = document.querySelector('.news');
+        const newsContainer = document.querySelector<HTMLDivElement>('.news');
 
         if (newsItemTemp === null || newsContainer === null) {
             throw new Error('News template or container not found');
@@ -15,13 +15,13 @@ class News {
         news.forEach((item, idx): void => {
             const newsClone = document.importNode(newsItemTemp.content, true);
 
-            const newsItem = newsClone.querySelector('.news__item');
-            const newsMetaPhoto = newsClone.querySelector<HTMLElement>('.news__meta-photo');
-            const newsMetaAuthor = newsClone.querySelector('.news__meta-author');
-            const newsMetaDate = newsClone.querySelector('.news__meta-date');
-            const newsTitle = newsClone.querySelector('.news__description-title');
-            const newsSource = newsClone.querySelector('.news__description-source');
-            const newsDescription = newsClone.querySelector('.news__description-content');
+            const newsItem = newsClone.querySelector<HTMLDivElement>('.news__item');
+            const newsMetaPhoto = newsClone.querySelector<HTMLDivElement>('.news__meta-photo');
+            const newsMetaAuthor = newsClone.querySelector<HTMLLIElement>('.news__meta-author');
+            const newsMetaDate = newsClone.querySelector<HTMLLIElement>('.news__meta-date');
+            const newsTitle = newsClone.querySelector<HTMLHeadingElement>('.news__description-title');
+            const newsSource = newsClone.querySelector<HTMLHeadingElement>('.news__description-source');
+            const newsDescription = newsClone.querySelector<HTMLParagraphElement>('.news__description-content');
             const newsLink = newsClone.querySelector<HTMLAnchorElement>('.news__read-more a');
 
             if (
