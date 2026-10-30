@@ -7,10 +7,11 @@ class AppController extends AppLoader {
     }
 
     public getNews(event: Event, callback: (articles: Article[]) => void): void {
-        const newsContainer: EventTarget | null = event.currentTarget;
-        let target: Element | null = event.target instanceof Element ? event.target : null;
+        const newsContainer: HTMLElement | null =
+            event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
+        let target: HTMLElement | null = event.target instanceof HTMLElement ? event.target : null;
 
-        if (!(newsContainer instanceof Element) || target === null) {
+        if (newsContainer === null || target === null) {
             return;
         }
 
@@ -18,9 +19,17 @@ class AppController extends AppLoader {
             if (target.classList.contains('source__item')) {
                 const sourceId: string | null = target.getAttribute('data-source-id');
 
-                if (sourceId !== null && newsContainer.getAttribute('data-source') !== sourceId) {
-                    newsContainer.setAttribute('data-source', sourceId);
-                    super.loadNews(sourceId, callback);
+                if (sourceId !== null) {
+                    const activeSourceItem: HTMLElement | null =
+                        newsContainer.querySelector<HTMLElement>('.source__item.active');
+
+                    activeSourceItem?.classList.remove('active');
+                    target.classList.add('active');
+
+                    if (newsContainer.getAttribute('data-source') !== sourceId) {
+                        newsContainer.setAttribute('data-source', sourceId);
+                        super.loadNews(sourceId, callback);
+                    }
                 }
 
                 return;
