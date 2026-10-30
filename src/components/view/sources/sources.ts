@@ -1,4 +1,5 @@
 import type { Source } from '../../controller/api.type';
+import { importTemplateContent } from '../dom.util';
 import './sources.css';
 
 class Sources {
@@ -12,7 +13,7 @@ class Sources {
         }
 
         data.forEach((item): void => {
-            const sourceClone: DocumentFragment = document.importNode(sourceItemTemp.content, true);
+            const sourceClone: DocumentFragment = importTemplateContent(sourceItemTemp, { deep: true });
 
             const sourceName: HTMLSpanElement | null = sourceClone.querySelector<HTMLSpanElement>('.source__item-name');
             const sourceItem: HTMLDivElement | null = sourceClone.querySelector<HTMLDivElement>('.source__item');

@@ -1,4 +1,5 @@
 import type { Article } from '../../controller/api.type';
+import { importTemplateContent } from '../dom.util';
 import './news.css';
 
 class News {
@@ -13,7 +14,7 @@ class News {
         }
 
         news.forEach((item, idx): void => {
-            const newsClone: DocumentFragment = document.importNode(newsItemTemp.content, true);
+            const newsClone: DocumentFragment = importTemplateContent(newsItemTemp, { deep: true });
 
             const newsItem: HTMLDivElement | null = newsClone.querySelector<HTMLDivElement>('.news__item');
             const newsMetaPhoto: HTMLDivElement | null = newsClone.querySelector<HTMLDivElement>('.news__meta-photo');
