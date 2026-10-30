@@ -6,16 +6,16 @@ export class AppView {
     private news: News;
     private sources: Sources;
 
-    constructor() {
+    public constructor() {
         this.news = new News();
         this.sources = new Sources();
     }
 
-    drawNews(articles: Article[]): void {
+    public drawNews(articles: Article[]): void {
         this.news.draw(articles);
     }
 
-    drawSources(sources: Source[]): void {
+    public drawSources(sources: Source[]): void {
         this.sources.draw(sources);
     }
 }

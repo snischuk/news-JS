@@ -2,7 +2,7 @@ import type { Source } from '../../controller/api.type';
 import './sources.css';
 
 class Sources {
-    draw(data: Source[]): void {
+    public draw(data: Source[]): void {
         const fragment = document.createDocumentFragment();
         const sourceItemTemp = document.querySelector<HTMLTemplateElement>('#sourceItemTemp');
         const sourcesContainer = document.querySelector<HTMLDivElement>('.sources');

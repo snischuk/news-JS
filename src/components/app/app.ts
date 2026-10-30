@@ -5,12 +5,12 @@ class App {
     private controller: AppController;
     private view: AppView;
 
-    constructor() {
+    public constructor() {
         this.controller = new AppController();
         this.view = new AppView();
     }
 
-    start(): void {
+    public start(): void {
         const sourcesContainer = document.querySelector<HTMLDivElement>('.sources');
 
         if (sourcesContainer === null) {

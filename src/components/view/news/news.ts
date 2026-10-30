@@ -2,7 +2,7 @@ import type { Article } from '../../controller/api.type';
 import './news.css';
 
 class News {
-    draw(data: Article[]): void {
+    public draw(data: Article[]): void {
         const news = data.slice(0, 10);
         const fragment = document.createDocumentFragment();
         const newsItemTemp = document.querySelector<HTMLTemplateElement>('#newsItemTemp');

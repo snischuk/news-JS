@@ -21,12 +21,12 @@ class Loader {
     private baseLink: string;
     private options: RequestOptions;
 
-    constructor(baseLink: string, options: RequestOptions) {
+    public constructor(baseLink: string, options: RequestOptions) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
-    getResp(
+    public getResp(
         { endpoint, options = {} }: RequestConfig,
         callback: (data: unknown) => void = (): void => {
             console.error('No callback for GET response');

@@ -2,11 +2,11 @@ import type { Article, Source } from './api.type';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    getSources(callback: (sources: Source[]) => void): void {
+    public getSources(callback: (sources: Source[]) => void): void {
         super.getSources(callback);
     }
 
-    getNews(event: Event, callback: (articles: Article[]) => void): void {
+    public getNews(event: Event, callback: (articles: Article[]) => void): void {
         const newsContainer = event.currentTarget;
         let target: Element | null = event.target instanceof Element ? event.target : null;
 

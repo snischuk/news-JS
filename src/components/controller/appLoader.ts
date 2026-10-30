@@ -3,7 +3,7 @@ import { isNewsResponse, isSourcesResponse } from './api.util';
 import Loader from './loader';
 
 class AppLoader extends Loader {
-    constructor() {
+    public constructor() {
         const apiUrl = process.env.API_URL;
         const apiKey = process.env.API_KEY;
 
@@ -16,7 +16,7 @@ class AppLoader extends Loader {
         });
     }
 
-    getSources(callback: (sources: Source[]) => void): void {
+    public getSources(callback: (sources: Source[]) => void): void {
         super.getResp({ endpoint: 'sources' }, (data): void => {
             if (!isSourcesResponse(data)) {
                 console.error('Invalid sources API response');
@@ -27,7 +27,7 @@ class AppLoader extends Loader {
         });
     }
 
-    loadNews(sourceId: string, callback: (articles: Article[]) => void): void {
+    public loadNews(sourceId: string, callback: (articles: Article[]) => void): void {
         super.getResp(
             {
                 endpoint: 'everything',
