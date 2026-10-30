@@ -2,11 +2,16 @@ import type { Article, Source } from './api.type';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    public getSources(callback: (sources: Source[]) => void): void {
-        super.getSources(callback);
+    public getSources(onSuccess: (sources: Source[]) => void, onError: (error: Error) => void): void {
+        super.getSources(onSuccess, onError);
     }
 
-    public getNews(event: Event, callback: (articles: Article[]) => void): void {
+    public getNews(
+        event: Event,
+        onLoading: () => void,
+        onSuccess: (articles: Article[]) => void,
+        onError: (error: Error) => void
+    ): void {
         const newsContainer: HTMLElement | null =
             event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
         let target: HTMLElement | null = event.target instanceof HTMLElement ? event.target : null;
@@ -28,7 +33,8 @@ class AppController extends AppLoader {
 
                     if (newsContainer.getAttribute('data-source') !== sourceId) {
                         newsContainer.setAttribute('data-source', sourceId);
-                        super.loadNews(sourceId, callback);
+                        onLoading();
+                        super.loadNews(sourceId, onSuccess, onError);
                     }
                 }
 

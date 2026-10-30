@@ -1,4 +1,5 @@
 import type { Article, Source } from '../controller/api.type';
+import type { AsyncState } from './asyncState.type';
 import News from './news/news';
 import Sources from './sources/sources';
 
@@ -11,12 +12,12 @@ export class AppView {
         this.sources = new Sources();
     }
 
-    public drawNews(articles: Article[]): void {
-        this.news.draw(articles);
+    public renderNews(state: AsyncState<Article[]>): void {
+        this.news.render(state);
     }
 
-    public drawSources(sources: Source[]): void {
-        this.sources.draw(sources);
+    public renderSources(state: AsyncState<Source[]>): void {
+        this.sources.render(state);
     }
 }
 

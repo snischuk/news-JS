@@ -40,14 +40,14 @@ footer {
 }
 footer .copyright {
     font-size: 14px;
-    color: #333;
+    color: #aeb4bd;
     text-align: center;
 }
 footer .copyright a {
-    color: #444;
+    color: #d1d5db;
 }
 footer .copyright a:hover {
-    color: #555;
+    color: #fff;
 }
 footer .copyright:before {
     content: '©';

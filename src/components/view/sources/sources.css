@@ -12,6 +12,15 @@
         sans-serif;
 }
 
+.sources__state {
+    margin: 0.5em auto;
+    color: #fff;
+}
+
+.sources__state_error {
+    color: crimson;
+}
+
 .source__item {
     background: none;
     border: 2px solid #30c5ff;

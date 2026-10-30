@@ -27,19 +27,35 @@ class Loader {
     }
 
     public getResp(
-        { endpoint, options = {} }: RequestConfig,
-        callback: (data: unknown) => void = (): void => {
+        { endpoint, options = {} as RequestOptions }: RequestConfig,
+        onSuccess: (data: unknown) => void = (): void => {
             console.error('No callback for GET response');
+        },
+        onError: (error: Error) => void = (error: Error): void => {
+            console.error(error);
         }
     ): void {
-        this.load(HttpMethod.Get, endpoint, callback, options);
+        this.load(HttpMethod.Get, endpoint, onSuccess, options, onError);
     }
 
-    private errorHandler(res: Response): Response {
+    private async errorHandler(res: Response): Promise<Response> {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
-                console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
-            throw Error(res.statusText);
+            let message: string = res.statusText || `Request failed with status ${res.status}`;
+
+            try {
+                const data: unknown = await res.json();
+
+                if (
+                    typeof data === 'object' &&
+                    data !== null &&
+                    'message' in data &&
+                    typeof data.message === 'string'
+                ) {
+                    message = data.message;
+                }
+            } catch {}
+
+            throw new Error(message);
         }
 
         return res;
@@ -59,14 +75,15 @@ class Loader {
     private load(
         method: HttpMethod,
         endpoint: string,
-        callback: (data: unknown) => void,
-        options: RequestOptions = {}
+        onSuccess: (data: unknown) => void,
+        options: RequestOptions = {},
+        onError: (error: Error) => void
     ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res): Promise<unknown> => res.json())
-            .then((data: unknown): void => callback(data))
-            .catch((err: unknown): void => console.error(err));
+            .then((data: unknown): void => onSuccess(data))
+            .catch((err: unknown): void => onError(err instanceof Error ? err : new Error(String(err))));
     }
 }
 

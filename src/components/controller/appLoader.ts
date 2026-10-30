@@ -2,6 +2,11 @@ import type { Article, Source } from './api.type';
 import { isNewsResponse, isSourcesResponse } from './api.util';
 import Loader from './loader';
 
+enum ApiEndpoint {
+    Sources = 'sources',
+    Everything = 'everything',
+}
+
 class AppLoader extends Loader {
     public constructor() {
         const apiUrl: string | undefined = process.env.API_URL;
@@ -14,33 +19,38 @@ class AppLoader extends Loader {
         super(apiUrl, apiKey ? { apiKey } : {});
     }
 
-    public getSources(callback: (sources: Source[]) => void): void {
-        super.getResp({ endpoint: 'sources' }, (data): void => {
-            if (!isSourcesResponse(data)) {
-                console.error('Invalid sources API response');
-                return;
-            }
+    public getSources(onSuccess: (sources: Source[]) => void, onError: (error: Error) => void): void {
+        super.getResp(
+            { endpoint: ApiEndpoint.Sources },
+            (data): void => {
+                if (!isSourcesResponse(data)) {
+                    onError(new Error('Invalid sources API response'));
+                    return;
+                }
 
-            callback(data.sources);
-        });
+                onSuccess(data.sources);
+            },
+            onError
+        );
     }
 
-    public loadNews(sourceId: string, callback: (articles: Article[]) => void): void {
+    public loadNews(sourceId: string, onSuccess: (articles: Article[]) => void, onError: (error: Error) => void): void {
         super.getResp(
             {
-                endpoint: 'everything',
+                endpoint: ApiEndpoint.Everything,
                 options: {
                     sources: sourceId,
                 },
             },
             (data): void => {
                 if (!isNewsResponse(data)) {
-                    console.error('Invalid news API response');
+                    onError(new Error('Invalid news API response'));
                     return;
                 }
 
-                callback(data.articles);
-            }
+                onSuccess(data.articles);
+            },
+            onError
         );
     }
 }

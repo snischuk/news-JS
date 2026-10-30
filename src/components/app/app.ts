@@ -1,4 +1,5 @@
 import AppController from '../controller/controller';
+import { AsyncStatus } from '../view/asyncState.type';
 import { AppView } from '../view/appView';
 
 class App {
@@ -17,11 +18,20 @@ class App {
             throw new Error('Sources container not found');
         }
 
-        sourcesContainer.addEventListener('click', (event: MouseEvent): void =>
-            this.controller.getNews(event, (articles): void => this.view.drawNews(articles))
-        );
+        sourcesContainer.addEventListener('click', (event: MouseEvent): void => {
+            this.controller.getNews(
+                event,
+                (): void => this.view.renderNews({ status: AsyncStatus.Loading }),
+                (articles): void => this.view.renderNews({ status: AsyncStatus.Success, data: articles }),
+                (error): void => this.view.renderNews({ status: AsyncStatus.Error, error })
+            );
+        });
 
-        this.controller.getSources((sources): void => this.view.drawSources(sources));
+        this.view.renderSources({ status: AsyncStatus.Loading });
+        this.controller.getSources(
+            (sources): void => this.view.renderSources({ status: AsyncStatus.Success, data: sources }),
+            (error): void => this.view.renderSources({ status: AsyncStatus.Error, error })
+        );
     }
 }
 
