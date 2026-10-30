@@ -17,7 +17,7 @@ class AppLoader extends Loader {
     }
 
     getSources(callback: (sources: Source[]) => void): void {
-        super.getResp({ endpoint: 'sources' }, (data) => {
+        super.getResp({ endpoint: 'sources' }, (data): void => {
             if (!isSourcesResponse(data)) {
                 console.error('Invalid sources API response');
                 return;
@@ -35,7 +35,7 @@ class AppLoader extends Loader {
                     sources: sourceId,
                 },
             },
-            (data) => {
+            (data): void => {
                 if (!isNewsResponse(data)) {
                     console.error('Invalid news API response');
                     return;

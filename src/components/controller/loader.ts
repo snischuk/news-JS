@@ -28,7 +28,7 @@ class Loader {
 
     getResp(
         { endpoint, options = {} }: RequestConfig,
-        callback: (data: unknown) => void = () => {
+        callback: (data: unknown) => void = (): void => {
             console.error('No callback for GET response');
         }
     ): void {
@@ -49,7 +49,7 @@ class Loader {
         const urlOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach((key) => {
+        Object.keys(urlOptions).forEach((key): void => {
             url += `${key}=${urlOptions[key]}&`;
         });
 
@@ -64,9 +64,9 @@ class Loader {
     ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res) => res.json())
-            .then((data: unknown) => callback(data))
-            .catch((err: unknown) => console.error(err));
+            .then((res): Promise<unknown> => res.json())
+            .then((data: unknown): void => callback(data))
+            .catch((err: unknown): void => console.error(err));
     }
 }
 

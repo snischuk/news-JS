@@ -12,7 +12,7 @@ class News {
             throw new Error('News template or container not found');
         }
 
-        news.forEach((item, idx) => {
+        news.forEach((item, idx): void => {
             const newsClone = document.importNode(newsItemTemp.content, true);
 
             const newsItem = newsClone.querySelector('.news__item');

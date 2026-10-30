@@ -17,11 +17,11 @@ class App {
             throw new Error('Sources container not found');
         }
 
-        sourcesContainer.addEventListener('click', (event) =>
-            this.controller.getNews(event, (articles) => this.view.drawNews(articles))
+        sourcesContainer.addEventListener('click', (event: MouseEvent): void =>
+            this.controller.getNews(event, (articles): void => this.view.drawNews(articles))
         );
 
-        this.controller.getSources((sources) => this.view.drawSources(sources));
+        this.controller.getSources((sources): void => this.view.drawSources(sources));
     }
 }
 

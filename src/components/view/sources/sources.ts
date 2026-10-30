@@ -11,7 +11,7 @@ class Sources {
             throw new Error('Sources template or container not found');
         }
 
-        data.forEach((item) => {
+        data.forEach((item): void => {
             const sourceClone = document.importNode(sourceItemTemp.content, true);
 
             const sourceName = sourceClone.querySelector('.source__item-name');
