@@ -3,12 +3,49 @@
     flex-direction: column;
     margin: 1rem auto;
     margin-bottom: 1.6%;
-    background: #fff;
-    color: #333;
+    background: var(--color-white);
+    color: var(--color-news-text);
     line-height: 1.4;
     font-family: Arial, sans-serif;
     border-radius: 5px;
     overflow: hidden;
+}
+
+.news__state {
+    margin: 1rem auto;
+    color: var(--color-white);
+    text-align: center;
+}
+
+.news__state_error {
+    color: var(--color-error);
+}
+
+.news__state_loading::before,
+.sources__state_loading::before {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 0.65rem;
+    border: 2px solid var(--color-spinner-track);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    content: '';
+    animation: loading-spin 0.8s linear infinite;
+    vertical-align: -3px;
+}
+
+@keyframes loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .news__state_loading::before,
+    .sources__state_loading::before {
+        animation: none;
+    }
 }
 
 .news__item:hover .news__meta-photo {
@@ -45,8 +82,8 @@
     left: -120%;
     margin: auto;
     transition: left 0.2s;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
+    background: var(--color-news-overlay);
+    color: var(--color-white);
     padding: 10px;
     width: 100%;
     font-size: 0.9rem;
@@ -54,7 +91,7 @@
 
 .news__item .news__description {
     padding: 1rem;
-    background: #fff;
+    background: var(--color-white);
     position: relative;
     z-index: 1;
 }
@@ -69,7 +106,7 @@
     font-size: 1rem;
     font-weight: 300;
     text-transform: uppercase;
-    color: #a2a2a2;
+    color: var(--color-muted);
     margin-top: 5px;
 }
 
@@ -78,7 +115,7 @@
 }
 
 .news__item .news__description .news__read-more a {
-    color: #5ad67d;
+    color: var(--color-success);
     display: inline-block;
     position: relative;
     text-decoration: none;
@@ -90,7 +127,9 @@
     margin-left: -10px;
     opacity: 0;
     vertical-align: middle;
-    transition: margin 0.3s, opacity 0.3s;
+    transition:
+        margin 0.3s,
+        opacity 0.3s;
 }
 
 .news__item .news__description .news__read-more a:hover:after {
@@ -111,7 +150,7 @@
     content: '';
     position: absolute;
     height: 5px;
-    background: #5ad67d;
+    background: var(--color-success);
     width: 35px;
     top: -0.75rem;
     border-radius: 3px;
@@ -140,7 +179,7 @@
         -webkit-transform: skewX(-3deg);
         transform: skewX(-3deg);
         content: '';
-        background: #fff;
+        background: var(--color-white);
         width: 30px;
         position: absolute;
         left: -10px;
