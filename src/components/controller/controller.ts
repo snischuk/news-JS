@@ -2,7 +2,7 @@ import type { Article, Source } from './api.type';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    public getSources(onSuccess: (sources: Source[]) => void, onError: (error: Error) => void): void {
+    public override getSources(onSuccess: (sources: Source[]) => void, onError: (error: Error) => void): void {
         super.getSources(onSuccess, onError);
     }
 
@@ -10,7 +10,7 @@ class AppController extends AppLoader {
         event: Event,
         onLoading: () => void,
         onSuccess: (articles: Article[]) => void,
-        onError: (error: Error) => void
+        onError: (error: Error) => void,
     ): void {
         const newsContainer: HTMLElement | null =
             event.currentTarget instanceof HTMLElement ? event.currentTarget : null;

@@ -22,7 +22,7 @@ class AppLoader extends Loader {
     public getSources(onSuccess: (sources: Source[]) => void, onError: (error: Error) => void): void {
         super.getResp(
             { endpoint: ApiEndpoint.Sources },
-            (data): void => {
+            (data: unknown): void => {
                 if (!isSourcesResponse(data)) {
                     onError(new Error('Invalid sources API response'));
                     return;
@@ -30,7 +30,7 @@ class AppLoader extends Loader {
 
                 onSuccess(data.sources);
             },
-            onError
+            onError,
         );
     }
 
@@ -42,7 +42,7 @@ class AppLoader extends Loader {
                     sources: sourceId,
                 },
             },
-            (data): void => {
+            (data: unknown): void => {
                 if (!isNewsResponse(data)) {
                     onError(new Error('Invalid news API response'));
                     return;
@@ -50,7 +50,7 @@ class AppLoader extends Loader {
 
                 onSuccess(data.articles);
             },
-            onError
+            onError,
         );
     }
 }

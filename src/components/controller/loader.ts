@@ -33,7 +33,7 @@ class Loader {
         },
         onError: (error: Error) => void = (error: Error): void => {
             console.error(error);
-        }
+        },
     ): void {
         this.load(HttpMethod.Get, endpoint, onSuccess, options, onError);
     }
@@ -65,7 +65,7 @@ class Loader {
         const urlOptions: RequestOptions = { ...this.options, ...options };
         let url: string = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach((key): void => {
+        Object.keys(urlOptions).forEach((key: string): void => {
             url += `${key}=${urlOptions[key]}&`;
         });
 
@@ -77,11 +77,11 @@ class Loader {
         endpoint: string,
         onSuccess: (data: unknown) => void,
         options: RequestOptions = {},
-        onError: (error: Error) => void
+        onError: (error: Error) => void,
     ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res): Promise<unknown> => res.json())
+            .then((res: Response): Promise<unknown> => res.json())
             .then((data: unknown): void => onSuccess(data))
             .catch((err: unknown): void => onError(err instanceof Error ? err : new Error(String(err))));
     }

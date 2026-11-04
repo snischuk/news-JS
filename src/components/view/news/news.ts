@@ -29,7 +29,7 @@ class News {
             return;
         }
 
-        news.forEach((item, idx): void => {
+        news.forEach((item: Article, idx: number): void => {
             const newsClone: DocumentFragment = importTemplateContent(newsItemTemp, { deep: true });
 
             const newsItem: HTMLDivElement | null = newsClone.querySelector<HTMLDivElement>('.news__item');

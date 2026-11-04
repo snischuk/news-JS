@@ -1,6 +1,7 @@
 import AppController from '../controller/controller';
 import { AsyncStatus } from '../view/asyncState.type';
 import { AppView } from '../view/appView';
+import { Article, Source } from '../controller/api.type';
 
 class App {
     private controller: AppController;
@@ -22,15 +23,15 @@ class App {
             this.controller.getNews(
                 event,
                 (): void => this.view.renderNews({ status: AsyncStatus.Loading }),
-                (articles): void => this.view.renderNews({ status: AsyncStatus.Success, data: articles }),
-                (error): void => this.view.renderNews({ status: AsyncStatus.Error, error })
+                (articles: Article[]): void => this.view.renderNews({ status: AsyncStatus.Success, data: articles }),
+                (error: Error): void => this.view.renderNews({ status: AsyncStatus.Error, error }),
             );
         });
 
         this.view.renderSources({ status: AsyncStatus.Loading });
         this.controller.getSources(
-            (sources): void => this.view.renderSources({ status: AsyncStatus.Success, data: sources }),
-            (error): void => this.view.renderSources({ status: AsyncStatus.Error, error })
+            (sources: Source[]): void => this.view.renderSources({ status: AsyncStatus.Success, data: sources }),
+            (error: Error): void => this.view.renderSources({ status: AsyncStatus.Error, error }),
         );
     }
 }

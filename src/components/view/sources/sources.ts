@@ -29,7 +29,7 @@ class Sources {
             return;
         }
 
-        state.data.forEach((item): void => {
+        state.data.forEach((item: Source): void => {
             const sourceClone: DocumentFragment = importTemplateContent(sourceItemTemp, { deep: true });
 
             const sourceName: HTMLSpanElement | null = sourceClone.querySelector<HTMLSpanElement>('.source__item-name');
